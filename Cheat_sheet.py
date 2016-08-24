@@ -1,4 +1,15 @@
 ###############################################################################
+#
+#  ,-----.          ,--.                       ,--.
+# '  .--./ ,---.  ,-|  |,---.  ,---. ,--,--. ,-|  |,---. ,--,--,--.,--. ,--.
+# |  |    | .-. |' .-. | .-. :| .--'' ,-.  |' .-. | .-. :|        | \  '  /
+# '  '--'\' '-' '\ `-' \   --.\ `--.\ '-'  |\ `-' \   --.|  |  |  |  \   '
+#  `-----' `---'  `---' `----' `---' `--`--' `---' `----'`--`--`--'.-'  /
+#                                                                 `---'
+#
+# Code imported/summarized from https://www.codecademy.com
+#
+###############################################################################
 # importing modules
 
 from math import sqrt
@@ -45,3 +56,42 @@ meal_with_tip = tip(meal_with_tax)
 print type(42)
 print type(4.2)
 print type('spam')
+
+###############################################################################
+# Time and date
+
+from datetime import datetime
+now=datetime.now()
+print '%s/%s/%s' % (now.month,now.day,now.year)
+
+###############################################################################
+# If statements
+
+if x == 1:
+    print "yes x == 1"
+        #indent me!
+    elif x == 2
+    print "x is actually 2!"
+
+###############################################################################
+# Classes
+
+class Animal(object):  # new class
+    is_alive = True    # global variable for the class
+    def __init__(self,name,size, breed ):    #pass in initializing Function
+        self.name = name
+        self.size = size
+        self.breed = breed
+    def desciption(self):
+        print self.breed
+        print self.name
+
+zebra = Animal("Bob", 10, "pure")
+
+print zebra.name        # prints Bob
+print zebra.size        # prints 10
+print zebra.breed       # prints pure
+
+print zebra.is_alive    # prints True
+
+print zebra.desciption()
