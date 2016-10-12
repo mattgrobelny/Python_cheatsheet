@@ -49,6 +49,9 @@ meal_cost = 100
 meal_with_tax = tax(meal_cost)
 meal_with_tip = tip(meal_with_tax)
 
+def Pythagorean(a, b):
+    c = a**2 + b**2
+    return sqrt(c)
 
 ###############################################################################
 # finding type of variable
@@ -61,15 +64,15 @@ print type('spam')
 # Time and date
 
 from datetime import datetime
-now=datetime.now()
-print '%s/%s/%s' % (now.month,now.day,now.year)
+now = datetime.now()
+print '%s/%s/%s' % (now.month, now.day, now.year)
 
 ###############################################################################
 # If statements
 
 if x == 1:
     print "yes x == 1"
-        #indent me!
+    # indent me!
     elif x == 2
     print "x is actually 2!"
 
@@ -78,10 +81,12 @@ if x == 1:
 
 class Animal(object):  # new class
     is_alive = True    # global variable for the class
-    def __init__(self,name,size, breed ):    #pass in initializing Function
+
+    def __init__(self, name, size, breed):    # pass in initializing Function
         self.name = name
         self.size = size
         self.breed = breed
+
     def desciption(self):
         print self.breed
         print self.name
@@ -95,3 +100,97 @@ print zebra.breed       # prints pure
 print zebra.is_alive    # prints True
 
 print zebra.desciption()
+
+###############################################################################
+# New stuff from IB501
+
+# Need to know how to execute commands outside of python <-
+
+###############################################################################
+# For loops
+
+for x in range(0, 3):
+    print "We're on time %d" % (x)
+
+###############################################################################
+# If else
+x = 2
+if x == 10:
+    print "yes x is equal to 10"
+elif x == 5:
+    print "x is:%s" % (x)
+else:
+    print x
+
+###############################################################################
+# While loops
+for a in range(1, 11):
+    print "here is a number: %s" % (a)
+    while a == 10:
+        print "got to %s !" % (a)
+###############################################################################
+# Dictionaries
+
+# similar to array list of values, transported together
+# Empty dictionary
+foo = {}
+foobar = {'id1': "ATCG", 'id2': "TGCA", 'id3': "TGAA"}
+bar = {"good": 0, "bad": 1}
+
+# refering to dic
+print foobar['id1']
+
+# containing arrays
+
+# checking for keys
+key = 'id1'
+
+for key in foobar:
+    print foobar[key]
+
+pops = {}
+
+pops['pop1'] = 35
+
+pops['pop2'] = 36
+
+pops['pop3'] = 72
+
+print "sample count for pop3:", pops['pop3']
+
+for key in pops:
+    print pops[key]
+    print key
+
+# all dictionary values
+print pops.values()
+print pops.keys()
+
+print pops.items()
+
+# $ [72, 36, 35]
+# $ ['pop3', 'pop2', 'pop1']
+# $ [('pop3', 72), ('pop2', 36), ('pop1', 35)]
+
+###############################################################################
+# objects
+
+class pop(object):
+    """docstring for """
+    def __init__(self, arg, name):
+        super(, self).__init__()
+        self.arg = arg
+        self.name = name
+
+pop_new = pop(1, "Name")
+
+print pop_new.name
+pop_new.name = "New pop"
+
+###############################################################################
+# Command line options
+
+import sys
+
+for i in ARGV:
+    print ARGV[i]
