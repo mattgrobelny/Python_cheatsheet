@@ -12,32 +12,35 @@ import utils
 import cv2
 from sklearn import metrics
 import numpy as np
-# construct the argument parser and parse the arguments
-# ap = argparse.ArgumentParser()
-# # ap.add_argument("-i", "--image", required=True, help="Path to the image")
-# ap.add_argument("-c", "--clusters", required=True, type=int,
-#                 help="# of clusters")
-# args = vars(ap.parse_args())
+import glob
+from PIL import Image
 
-# load the image and convert it from BGR to RGB so that
-# image_list = ['Unknown',
-#               'Unknown-2',
-#               'Unknown-3',
-#               'Unknown-4',
-#               'Unknown-5',
-#               'Unknown-6',
-#               'Unknown-7',
-#               'Unknown-8']
-# image_list = ['1_Corn_Old_High_Tip_20x-page-001.jpg',
-#               '1_Corn_Old_Low_Base_10x-page-001.jpg']
-image_list = ['1_Corn_Old_High_Tip_20x.pdf',
-              '1_Corn_Old_Low_Base_10x.pdf']
-image_location = '/Users/matt/github/Python_cheats/Test_stain/'
-cluster = 5
-# Open image get color_distribution
+# Dir for images
+image_location = '/home/mgrobelny/Data/IB271/IB271_jpg/lab5/'
+jpg = '*.jpg'
+
+# string for glob to produce list of files only .jpgs
+glob_dir =image_location+jpg
+#print glob_dir
+
+image_list = glob.glob(image_location+jpg)
+
+# output location
+image_location_output = '/home/mgrobelny/Data/IB271/IB271_jpg/lab5/Dominate_colors_cluster_9/'
+
+# Number of dominate color groups to find for kmeans algorithm
+cluster = 9
+
+#counter
+zero =1.0
+
 for image in image_list:
+    im = Image.open(image)
+    image_name = image.split('/')[-1][0:-4]
+    print "Working on:", image_name, "--- %s" %(zero/len(image_list)*100),'% done'
+    zero +=1
 
-    image_data = cv2.imread(image_location + image)
+    image_data = cv2.imread(image)
     image_data = cv2.cvtColor(image_data, cv2.COLOR_BGR2RGB)
 
     # reshape the image to be a list of pixels
@@ -52,16 +55,17 @@ for image in image_list:
     # representing the number of pixels labeled to each color
     hist = utils.centroid_histogram(db)
     #bar = utils.plot_colors(hist, db.cluster_centers_)
+
+    # reorganize colors
     hist_color = zip(hist, db.cluster_centers_)
     hist_out, color = zip(*hist_color)
-
     bar = utils.plot_colors(hist_out, color)
 
     # show our color bart
     plt.figure()
-    plt.rcParams['savefig.facecolor'] = 'black'
-    plt.suptitle(image, fontsize=20)
+    plt.rcParams['savefig.facecolor'] = 'grey'
+    plt.suptitle(image_name, fontsize=20)
     plt.axis("off")
     plt.imshow(bar)
-    plt.savefig(image_location + "Dominate_colors_%s.png" % (image), dpi=500)
+    plt.savefig(image_location_output + "%s_Dominate_colors.png" % (image_name), dpi=500)
     plt.close()
