@@ -5,6 +5,7 @@ import math
 from PIL import Image
 import matplotlib.pyplot as plt
 from matplotlib import cm
+from sklearn.feature_extraction import image
 
 
 # import getopt
@@ -35,19 +36,13 @@ from matplotlib import cm
 # print "Kmer size is:", kmer
 # print "Input file is:", file_name
 
-image_list = ['Unknown',
-              'Unknown-2',
-              'Unknown-3',
-              'Unknown-4',
-              'Unknown-5',
-              'Unknown-6',
-              'Unknown-7',
-              'Unknown-8',
-              'Unknown-9']
-image_location = '/Users/matt/github/Python_cheats/Fruit_imgs/'
+image_list = ['1_Corn_Old_High_Tip_20x.pdf',
+              '1_Corn_Old_Low_Base_10x.pdf']
+image_location = '/Users/matt/github/Python_cheats/Test_stain/'
+
 x_val = range(256)
 image_hist_dic = {}
-
+patches_list = []
 # Open image get color_distribution
 for image in image_list:
     im = Image.open(image_location + image)
@@ -55,20 +50,29 @@ for image in image_list:
     color_distribution = im.histogram()
     total_pixels = float(width * height)
     color_distribution_percent = []
-    for i in range(len(color_distribution)):
-        color_distribution_percent.append(
-            (float(color_distribution[i]) / float(total_pixels)) * 100)
-
-        image_hist_dic[image] = color_distribution_percent
+    red = []
+    blue = []
+    green = []
+    for i in range(256):
+        red.append(math.floor(
+            float(color_distribution[i]) / float(total_pixels) * 100))
+        blue.append(math.floor(float(color_distribution[
+                    257 + i]) / float(total_pixels) * 100))
+        green.append(math.floor(float(color_distribution[
+            512 + i]) / float(total_pixels) * 100))
+    image_hist_dic[image] = [red, blue, green]
 for key in image_hist_dic.keys():
 
     # Plot R
-    plt.plot(x_val, image_hist_dic[key][0:256], color='red')
+    plt.plot(x_val, image_hist_dic[key][0], color='red')
     # Plot B
-    plt.plot(x_val, image_hist_dic[key][257:513], color='blue')
+    plt.plot(x_val, image_hist_dic[key][1], color='blue')
     # Plot G
-    plt.plot(x_val, image_hist_dic[key][512:769], color='green')
-    plt.xlim(150, 256)
+    plt.plot(x_val, image_hist_dic[key][2], color='green')
+    plt.xlim(0, 256)
+    plt.ylim(0, 100)
+
+    plt.suptitle(key, fontsize=20)
     # plt.axvline(x=image_hist_dic[key][0:256].index(
     #     max(image_hist_dic[key][0:256])), color='red')
     # plt.axvline(x=image_hist_dic[key][257:513].index(
@@ -85,30 +89,33 @@ for key in image_hist_dic.keys():
 
     plt.show()
 
-import numpy as np
-
-from sklearn.cluster import DBSCAN
-from sklearn import metrics
-from sklearn.datasets.samples_generator import make_blobs
-from sklearn.preprocessing import StandardScaler
-
-X = StandardScaler().fit_transform(X)
-
-db = DBSCAN(eps=0.3, min_samples=10).fit(X)
-core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
-core_samples_mask[db.core_sample_indices_] = True
-labels = db.labels_
-
-# Number of clusters in labels, ignoring noise if present.
-n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
-
-print('Estimated number of clusters: %d' % n_clusters_)
-print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels_true, labels))
-print("Completeness: %0.3f" % metrics.completeness_score(labels_true, labels))
-print("V-measure: %0.3f" % metrics.v_measure_score(labels_true, labels))
-print("Adjusted Rand Index: %0.3f"
-      % metrics.adjusted_rand_score(labels_true, labels))
-print("Adjusted Mutual Information: %0.3f"
-      % metrics.adjusted_mutual_info_score(labels_true, labels))
-print("Silhouette Coefficient: %0.3f"
-      % metrics.silhouette_score(X, labels))
+#
+# from sklearn.cluster import KMeans
+# from sklearn import metrics
+# from sklearn.datasets.samples_generator import make_blobs
+# from sklearn.preprocessing import StandardScaler
+#
+# featureList = []
+# for key in image_hist_dic.keys():
+#     featureList.append(image_hist_dic[key][
+#                        0] + image_hist_dic[key][1] + image_hist_dic[key][2])
+# featureList_scaled = StandardScaler().fit_transform(featureList)
+# print featureList_scaled
+# #db = KMeans(n_clusters=3).fit(image_hist_dic.values())
+# # core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
+# # core_samples_mask[db.core_sample_indices_] = True
+# # labels = db.labels_
+#
+# # Number of clusters in labels, ignoring noise if present.
+# n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
+#
+# print('Estimated number of clusters: %d' % n_clusters_)
+# print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels_true, labels))
+# print("Completeness: %0.3f" % metrics.completeness_score(labels_true, labels))
+# print("V-measure: %0.3f" % metrics.v_measure_score(labels_true, labels))
+# print("Adjusted Rand Index: %0.3f"
+#       % metrics.adjusted_rand_score(labels_true, labels))
+# print("Adjusted Mutual Information: %0.3f"
+#       % metrics.adjusted_mutual_info_score(labels_true, labels))
+# print("Silhouette Coefficient: %0.3f"
+#       % metrics.silhouette_score(X, labels))
