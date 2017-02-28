@@ -30,10 +30,10 @@ glob_dir =image_location+jpg
 image_list = glob.glob(image_location+jpg)
 
 # output location
-image_location_output = '/home/mgrobelny/Data/IB271/IB271_jpg/lab5/Dominate_colors_cluster_9/'
+image_location_output = '/home/mgrobelny/Data/IB271/IB271_jpg/lab5/Dominate_colors_cluster_25/'
 
 # Number of dominate color groups to find for kmeans algorithm
-cluster = 9
+cluster = 25
 
 #counter
 zero =1.0

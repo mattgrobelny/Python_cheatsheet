@@ -7,7 +7,7 @@ import re
 #
 
 # Dir for images
-image_location = '/home/mgrobelny/Data/IB271/IB271_jpg/lab5/Dominate_colors_cluster_5/'
+image_location = '/home/mgrobelny/Data/IB271/IB271_jpg/lab5/Dominate_colors_cluster_9/'
 png = '.png'
 
 # string for glob to produce list of files only .jpgs

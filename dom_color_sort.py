@@ -6,7 +6,7 @@ import subprocess
 import sys
 
 # Dir for images
-image_location = '/home/mgrobelny/Data/IB271/IB271_jpg/lab5/Dominate_colors_cluster_5/'
+image_location = '/home/mgrobelny/Data/IB271/IB271_jpg/lab5/Dominate_colors_cluster_9/'
 images_out ='Summary_images/'
 png = '*.png'
 
@@ -81,5 +81,5 @@ for species_file in species_list:
         # Stack of dominate colors image output name and dir
         image_name_and_output_dir = image_location+images_out +'SUMMARY_'+species_file+'_'+condition+'_Dominate_colors.jpg'
 
-        # Save new image 
-        new_im.save(image_name_and_output_dir.replace('.*','_').replace('(base|bottom)','base'))
+        # Save new image
+        new_im.save(image_name_and_output_dir.replace('.*','_').replace('(base|bottom)','base').replace('Tou','Toucan').replace('red|',''))
