@@ -1,4 +1,3 @@
-
 import os
 import sys
 import numpy as np
@@ -7,6 +6,11 @@ from PIL import Image
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import glob
+
+#
+# Goal of Script: 1) Pull of a histogram of pixel and their color values
+#                 2) Output a lineplot of color value distribution for each color band (R, G, B)
+#
 
 # Dir for images
 image_location = '/home/mgrobelny/Data/IB271/IB271_jpg/lab5/'
